@@ -1,0 +1,32 @@
+﻿@model ContatoModel
+@{
+}
+
+<label id="errorMessage">@Model.errorMessage</label>
+
+<form method="post"> 
+    <input type="hidden" asp-for="id" />
+
+    <div class="form-group">
+        <label for="nome">Nome:</label>
+        <input class="form-control" asp-for="nome" type="text" />
+    </div>    
+
+    <div class="form-group">
+        <label>Cpf:</label>
+        <input class="form-control" type="text" asp-for="cpf" />
+    </div>
+
+    <div class="form-group">
+        <label>Telefone:</label>
+        <input class="form-control" type="text" asp-for="telefone" />
+    </div>
+
+    <div class="form-group">
+        <label>Email:</label>
+        <input class="form-control" type="text" asp-for="email" />
+    </div>
+
+    <button class="btn btn-primary" type="submit" asp-controller="Contatos" asp-action="Salvar">Salvar</button>
+    <a class="btn btn-danger"  href="@Url.Action("Index", "Contatos")">Cancelar</a>
+</form>
