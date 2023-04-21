@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APICadCenter", "APICadCenter\APICadCenter.csproj", "{2A247C74-A76B-45D9-807B-78D4DC39DA23}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp", "WebApp\WebApp.csproj", "{BFCB3C82-1A19-4AE4-88CF-4931A0754B21}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2A247C74-A76B-45D9-807B-78D4DC39DA23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A247C74-A76B-45D9-807B-78D4DC39DA23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A247C74-A76B-45D9-807B-78D4DC39DA23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A247C74-A76B-45D9-807B-78D4DC39DA23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFCB3C82-1A19-4AE4-88CF-4931A0754B21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFCB3C82-1A19-4AE4-88CF-4931A0754B21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFCB3C82-1A19-4AE4-88CF-4931A0754B21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFCB3C82-1A19-4AE4-88CF-4931A0754B21}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {60A4FDE7-0522-4E6C-A10E-1C6EDB94817F}
+	EndGlobalSection
+EndGlobal
