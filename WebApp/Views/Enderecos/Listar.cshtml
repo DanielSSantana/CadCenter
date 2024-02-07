@@ -1,0 +1,79 @@
+@model EnderecosPorPessoa
+<div>
+    <a class="btn btn-primary" asp-controller="Enderecos" asp-action="Cadastrar" asp-route-pessoaId="@Model.PessoaId">Novo</a>
+    <a class="btn btn-secondary" href="@Url.Action("Index", "Contatos")">Cadastros</a>
+   </br>
+   <label id="msgErro"></label>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Ativo/Inativo</th>
+      <th scope="col">Logradouro</th>
+      <th scope="col">Numero</th>
+      <th scope="col">Municipio</th>
+      <th scope="col">Estado</th>
+      <th scope="col">Cep</th>
+    </tr>
+  </thead>
+  <tbody>
+     @foreach (EnderecoModel item in Model.Enderecos){
+        <tr>
+            <td>
+                <!--a role="button" class="btn btnAtivarInativar" href="/Enderecos/@(@item.ativo == "Inativar" ? "Inativar" : "Ativar")/@item.id">@(@item.ativo == "Inativar" ? "Inativar" : "Ativar")</!a-->
+                <!--a role="button" class="btn" asp-controller="Enderecos" asp-action="Listar" asp-route-id="@item.id">Editar</a-->
+                <!--a role="button" class="btn btnExcluir" href="/Enderecos/Excluir/@item.id">Excluir</!a-->
+            </td>
+            <td>@(@item.ativo == "Inativar" ? "Ativo" : "Inativo")</td>
+            <td>@item.logradouro</td>
+            <td>@item.numero</td>
+            <td>@item.municipio</td>
+            <td>@item.estadoFederacao</td>
+            <td>@item.cep</td>
+        </tr>
+     }
+  </tbody>
+</table>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    //ajax para ecluir o contato
+    $(document).ready(function () {
+        $(".btnExcluir").click(function (e) {
+            e.preventDefault();
+            var url = $(this).attr("href");
+            $.ajax({
+                url: url,
+                type: "DELETE",
+                success: function (data) {
+                    window.location.reload();
+                },
+                error: function (data) {
+                    $("#msgErro").text("Erro ao excluir Endereco!");
+                    
+                }
+            });
+          
+        });
+        $(".btnAtivarInativar").click(function (e) {
+            e.preventDefault();
+            var url = $(this).attr("href");
+            $.ajax({
+                url: url,
+                type: "POST",
+                success: function (data) {
+                    window.location.reload();
+                },
+                error: function (data) {
+                    $("#msgErro").text("Erro, não foi possivel atender a solicitação!");
+
+                }
+            });
+
+        });
+    });
+
+</script>
+
+

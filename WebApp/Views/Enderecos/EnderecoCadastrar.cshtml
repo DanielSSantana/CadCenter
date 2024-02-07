@@ -1,0 +1,42 @@
+﻿@model EnderecoModel
+@{
+}
+
+<label id="errorMessage">@Model.errorMessage</label>
+
+<form method="post"> 
+    <input asp-for="pessoaId" type="hidden" />
+
+    <div class="form-group">
+        <label for="logradouro">Logradouro:</label>
+        <input class="form-control" asp-for="logradouro" type="text" />
+    </div>    
+
+    <div class="form-group">
+        <label>Numero:</label>
+        <input class="form-control" type="text" asp-for="numero" />
+    </div>
+
+    <div class="form-group">
+        <label>Municipio:</label>
+        <input class="form-control" type="text" asp-for="municipio" />
+    </div>
+
+    <div class="form-group">
+        <label>Estado:</label>
+        <input class="form-control" type="text" asp-for="estadoFederacao" />
+    </div>
+
+   <div class="form-group">
+        <label>Complemento:</label>
+        <input class="form-control" type="text" asp-for="complemento" />
+    </div>
+
+    <div class="form-group">
+        <label>Cep:</label>
+        <input class="form-control" type="text" asp-for="cep" />
+    </div>
+
+    <button class="btn btn-primary"  type="submit" asp-controller="Enderecos" asp-action="Salvar">Salvar</button>
+    <a class="btn btn-danger" href="/Enderecos/ListarPorPessoa/@Model.pessoaId">Cancelar</a>
+</form>
