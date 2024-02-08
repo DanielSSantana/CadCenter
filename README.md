@@ -14,6 +14,7 @@ Como:
  + Middlewares
  + Ef Core, Dapper
  + Baco relacional e não relacional (Sql server, MongoDb)
+   
 Outro repositorio será criado contendo a aplição de front end em feita em Angualar. Disponibilizarei o link aqui, em breve.
 
 ## Resumo
