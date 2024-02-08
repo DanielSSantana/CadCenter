@@ -2,7 +2,6 @@ using APICadCenter.Data;
 using APICadCenter.Dominio;
 using APICadCenter.Repositories;
 using APICadCenter.Servico;
-using APICadCenter.Servico.TratamentoErros;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;

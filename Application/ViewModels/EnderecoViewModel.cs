@@ -1,8 +1,8 @@
-﻿namespace WebApp.Models;
+﻿
+namespace APICadCenter.ViewModels
 {
-    public class EnderecoModel
+    public class EnderecoViewModel
     {
-        public string errorMessage { get; set; }
         public long id { get; set; }
         public string logradouro { get; set; }
         public string numero { get; set; }
@@ -11,7 +11,8 @@
         public string? complemento { get; set; }
         public string pais { get; set; }
         public string cep { get; set; }
+        public TipoEndereco tipoEndereco { get; set; }
         public string ativo { get; set; }
-        public long pessoaId { get; set; }
+        public long contatoId { get; set; }
     }
 }
