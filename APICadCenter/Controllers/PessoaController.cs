@@ -1,75 +1,68 @@
-﻿using APICadCenter.Data;
+﻿using Api.Controllers;
 using APICadCenter.Servico;
-using APICadCenter.Servico.DTO;
+using APICadCenter.ViewModels;
+using Application.Interfaces;
+using Application.Services;
+using AutoMapper;
+using Domain.Core.Bus;
+using Domain.Core.Notifications;
+using Domain.Models;
 using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APICadCenter.Controllers
 {
     [ApiController]
     [Route("api/[Controller]")]
-    public class PessoaController : Controller
+    public class PessoaController : BaseController
     {
         private readonly IPessoaService _pessoaService;
-        public PessoaController(IPessoaService contatoService)
+        private readonly IMapper _mapper; 
+        public PessoaController(INotificationHandler<DomainNotification> notifications, IMediatorHandler mediator, IMapper mapper, IPessoaService pessoaService)
+            : base(notifications, mediator)
         {
-            _pessoaService = contatoService;
+            _pessoaService = pessoaService;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public IActionResult Get([FromQuery] PaginaParametros paginaParametros)
         {
             var retorno = _pessoaService.Buscar(paginaParametros.Pagina, paginaParametros.TamanhoPagina);
-            List<PessoaDTO> lista = new List<PessoaDTO>();
-
-            foreach(var item in retorno)
-            {
-                lista.Add(new PessoaDTO { id = item.Id, nome = item.Nome, cpf = item.Cpf, ativo = item.Ativo ? "Sim" : "Não", email = item.Email, telefone = item.Telefone });
-            }
-
-            return Ok(lista);
+            var dados = _mapper.Map<IEnumerable<PessoaViewModel>>(retorno);
+            return ResponseAction(dados);
 
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public IActionResult Get(Guid id)
         {
-            var retorno = _pessoaService.BuscarPorId(id);
-
-            if(retorno == null)
-                return NotFound();
-
-            PessoaDTO pessoa = new PessoaDTO { id = retorno.Id, nome = retorno.Nome, cpf = retorno.Cpf, ativo = retorno.Ativo ? "Sim" : "Não", email = retorno.Email, telefone = retorno.Telefone };
-
-            return Ok(pessoa);
+            var data = _pessoaService.BuscarPorId(id);
+            //Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(data.PaginationMetadata));
+            var result = _mapper.Map<IEnumerable<EnderecoViewModel>>(data);//.ShapeData(parameters?.Fields);
+            return ResponseAction(result);
         }
+         
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(PessoaDTO))]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(PessoaViewModel))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Post(PessoaDTO pessoa)
-        {
-            if (pessoa.id != 0)
-            {
-                _pessoaService.AtualizarPropriedade(pessoa.id, pessoa.nome, pessoa.telefone, pessoa.email);
-                return Ok();
-            }
-            else
-            {
-                pessoa.id = _pessoaService.Criar(pessoa.nome, pessoa.cpf, pessoa.telefone, pessoa.email);
-                return CreatedAtAction(nameof(Get), pessoa);
-            }
+        public IActionResult Post(PessoaViewModel pessoa)
+        { 
+            _pessoaService.Criar(pessoa.nome, pessoa.cpf, pessoa.telefone, pessoa.email);
+            return ResponseAction(pessoa);
 
         }
 
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(Guid id)
         {
             _pessoaService.Exluir(id);
-            return Ok();
+            return ResponseAction(null);
         }
     }
 }
